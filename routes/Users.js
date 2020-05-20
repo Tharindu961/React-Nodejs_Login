@@ -9,6 +9,7 @@ users.use(cors())
 
 process.env.SECRET_KEY = 'secret'
 
+//User register route
 users.post('/register', (req,res) =>{
     const today = new Date()
     const userData = {
@@ -46,6 +47,7 @@ users.post('/register', (req,res) =>{
 
 })
 
+//user login route
 users.post('/login', (req, res) => {
     User.findOne({
         where: {

@@ -22,7 +22,7 @@ module.exports = db.sequelize.define(
             type: Sequelize.STRING
         },
         created: {
-            type: Sequelize.DataTypes,
+            type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
         }
     },

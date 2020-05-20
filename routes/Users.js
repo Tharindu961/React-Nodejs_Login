@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express")
 const users = express.Router()
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
@@ -26,11 +26,11 @@ users.post('/register', (req,res) =>{
     })
     .then(user =>{
         if(!user) {
-            bcrypt/HashChangeEvent(req.body.password, 10, (err,hash) => {
+            bcrypt.hash(req.body.password, 10, (err, hash) => {
                 userData.password = hash
                 User.create(userData)
                 .then(user => {
-                    res.json({status: user.emai + 'registered'})
+                    res.json({status: user.email + 'registered'})
                 })
                 .catch(err => {
                     res.send('error: ' + err)
@@ -44,6 +44,29 @@ users.post('/register', (req,res) =>{
         res.send('error: ' + err)
     })
 
+})
+
+users.post('/login', (req, res) => {
+    User.findOne({
+        where: {
+            email: req.body.email
+        }
+    })
+    .then(user => {
+        if(user) {
+            if(bcrypt.compareSync(req.body.password, user.password)){
+                let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+                    expiresIn: 140
+                })
+                res.send(token)
+            }
+        }else {
+            res.status(400).json({error: 'User down not exist'})
+        }
+    })
+    .catch(err => {
+        res.status(400).json({ error: err })
+    })
 })
 
 module.exports = users

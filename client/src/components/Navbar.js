@@ -22,6 +22,7 @@ class Navbar extends Component {
                     </Link>
                 </li>
             </ul>
+            
         )
         const userLink = (
             <ul className="navbar-nav">
@@ -43,7 +44,7 @@ class Navbar extends Component {
                 <button className="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
-                aria-target="#navbar1"
+                data-target="#navbar1"
                 aria-controls="navbar1"
                 aria-expanded="false"
                 aria-label="Toggle navigation">
